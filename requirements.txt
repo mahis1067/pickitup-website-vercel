@@ -1,0 +1,8 @@
+# Development prerequisites
+# This is a Node.js/npm project. Install JavaScript dependencies with:
+# npm install
+#
+# Required runtime versions are documented by package.json and the lockfile.
+# Verify your local tools with:
+# node --version
+# npm --version
