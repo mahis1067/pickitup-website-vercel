@@ -1,73 +1,32 @@
-import Link from 'next/link'
-import type {ReactNode} from 'react'
-
-import GetStartedCode from '@/app/components/GetStartedCode'
-import SideBySideIcons from '@/app/components/SideBySideIcons'
-
-type HomePageProps = {
-  description?: ReactNode
-  posts: ReactNode
-}
-
-export default function HomePage({description, posts}: HomePageProps) {
+export default function HomePage() {
   return (
-    <>
-      <div className="relative">
-        <div className="relative bg-[url(/images/tile-1-black.png)] bg-size-[5px]">
-          <div className="bg-gradient-to-b from-white w-full h-full absolute top-0" />
-          <div className="container">
-            <div className="relative min-h-[40vh] mx-auto max-w-2xl pt-10 xl:pt-20 pb-30 space-y-6 lg:max-w-4xl lg:px-12 flex flex-col items-center justify-center">
-              <div className="flex flex-col gap-4 items-center">
-                <div className="text-md leading-6 prose uppercase py-1 px-3 bg-white font-mono italic">
-                  A starter template for
-                </div>
-                <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-black">
-                  <Link
-                    className="underline decoration-brand hover:text-brand underline-offset-8 hover:underline-offset-4 transition-all ease-out"
-                    href="https://sanity.io/"
-                  >
-                    Mahi
-                  </Link>
-                  +
-                  <Link
-                    className="underline decoration-black text-framework underline-offset-8 hover:underline-offset-4 transition-all ease-out"
-                    href="https://nextjs.org/"
-                  >
-                    Shah
-                  </Link>
-                </h1>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-col items-center">
-          <SideBySideIcons />
-          <div className="container relative mx-auto max-w-2xl pb-20 pt-10 space-y-6 lg:max-w-4xl lg:px-12 flex flex-col items-center">
-            <div className="prose sm:prose-lg md:prose-xl xl:prose-2xl text-gray-700 prose-a:text-gray-700 font-light text-center">
-              {description}
-              <div className="flex items-center flex-col gap-4">
-                <GetStartedCode />
-                <Link
-                  href="https://www.sanity.io/docs"
-                  className="inline-flex text-brand text-xs md:text-sm underline hover:text-gray-900"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Sanity Documentation
-                  <span aria-hidden="true" className="ml-1">
-                    ↗
-                  </span>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="border-t border-gray-100 bg-gray-50">
-        <div className="container">
-          <aside className="py-12 sm:py-20">{posts}</aside>
-        </div>
-      </div>
-    </>
+    <main className="page-shell">
+      <section className="hero" aria-labelledby="page-title">
+        <p className="eyebrow">HTML + CSS + TypeScript</p>
+        <h1 id="page-title">A tiny Next.js page.</h1>
+        <p className="intro">
+          The route in <code>app/page.tsx</code> calls this TSX view. This markup gets styled by
+          <code>css/globals.css</code> and deployed by Next.js on Vercel.
+        </p>
+        <a className="button" href="https://nextjs.org/docs" target="_blank" rel="noreferrer">
+          Read the Next.js docs
+        </a>
+      </section>
+      <section className="connection" aria-labelledby="connection-title">
+        <p className="eyebrow">The connection</p>
+        <h2 id="connection-title">Three small files, one page</h2>
+        <ol>
+          <li>
+            <strong>TypeScript:</strong> the route calls the view.
+          </li>
+          <li>
+            <strong>TSX:</strong> the view returns semantic HTML.
+          </li>
+          <li>
+            <strong>CSS:</strong> the global stylesheet gives it shape and color.
+          </li>
+        </ol>
+      </section>
+    </main>
   )
 }

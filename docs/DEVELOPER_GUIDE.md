@@ -13,7 +13,7 @@ This document is the working map for the Pick It Up website repository. It expla
 
 ## How the project is organized
 
-- `frontend/` is the Next.js application. Routes live directly under `frontend/app/`; reusable UI is under `frontend/app/components/`; Sanity access is under `frontend/sanity/lib/`.
+- `frontend/` is the Next.js application. The active route and layout live under `frontend/app/`; page markup is under `frontend/html/`; global styling is under `frontend/css/`. Sanity access remains available under `frontend/sanity/lib/` for future content-driven work.
 - `studio/` is the Sanity Studio. Document and object schemas live under `studio/src/schemaTypes/`.
 - The root workspace runs both packages through npm workspaces and Turborepo.
 - Sanity is the content source. The Studio schema defines the content shape, GROQ queries select it, generated TypeScript types describe it, and Next.js components render it.
@@ -36,26 +36,23 @@ This document is the working map for the Pick It Up website repository. It expla
 4. Update GROQ in `frontend/sanity/lib/queries.ts` and the consuming page/component.
 5. Test the Studio editor and the rendered frontend with real and empty content.
 
-Do not hand-edit `sanity.schema.json`, `frontend/sanity.types.ts`, or `studio/sanity.types.ts`.
-
-## Root files
-
+Do not hand-edit `sanity.schema.json`, `frontend/sanity.types.ts`, or `st
 | Path                                  | What it does                                                                                                              | Developer action                                                                                          |
 | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| `package.json`                        | Defines the npm workspaces and root commands for development, formatting, linting, type checking, and sample-data import. | **Edit** when workspace commands or shared tooling change.                                                |
-| `package-lock.json`                   | Locks the complete npm dependency tree.                                                                                   | **Managed**; update through npm, never by hand.                                                           |
-| `turbo.json`                          | Defines task dependencies and caching; frontend development depends on Sanity type generation.                            | **Edit carefully** when task ordering or caching changes.                                                 |
-| `README.md`                           | Project overview and product goals.                                                                                       | **Edit** when the product scope or entry-point setup changes. Keep detailed file ownership in this guide. |
-| `CONTRIBUTING.md`                     | Branching, setup, validation, and pull-request workflow.                                                                  | **Edit** when team workflow changes.                                                                      |
-| `requirements.txt`                    | A short Node.js/npm prerequisite note; it is not a Python dependency file.                                                | **Edit carefully**; update only when prerequisites change.                                                |
-| `vercel-installation-instructions.md` | Deployment and environment-variable instructions for Vercel and Sanity.                                                   | **Edit** when hosting or deployment steps change.                                                         |
-| `AGENTS.md`                           | Requires reading the installed Next.js documentation before Next.js work.                                                 | **Edit carefully**; this controls agent behavior.                                                         |
-| `CLAUDE.md`                           | Points Claude-based tooling to `AGENTS.md`.                                                                               | **Edit carefully**; keep it aligned with repository guidance.                                             |
-| `.gitignore`                          | Excludes secrets, dependencies, builds, and local generated output from Git.                                              | **Edit carefully** when adding a new local-only or generated path.                                        |
-| `.prettierignore`                     | Excludes selected files from Prettier.                                                                                    | **Edit carefully**; avoid hiding source files from formatting.                                            |
-| `sanity.schema.json`                  | Extracted Sanity schema used as an input to frontend type generation.                                                     | **Generated**; edit Studio schemas instead.                                                               |
-| `skills-lock.json`                    | Lock metadata for the repository's checked-in agent skill.                                                                | **Managed**; change only when updating that skill.                                                        |
-| `sanity-next-preview.png`             | Repository preview image used for project presentation.                                                                   | **Asset**; replace only when branding changes.                                                            |
+| `package.json`                       | Defines the npm workspaces and root commands for development, formatting, linting, type checking, and sample-data import. | **Edit** when workspace commands or shared tooling change.                                                |
+|`package-lock.json`                  | Locks the complete npm dependency tree.                                                                                   | **Managed**; update through npm, never by hand.                                                           |
+|`turbo.json`                         | Defines task dependencies and caching; frontend development depends on Sanity type generation.                            | **Edit carefully** when task ordering or caching changes.                                                 |
+|`README.md`                          | Project overview and product goals.                                                                                       | **Edit** when the product scope or entry-point setup changes. Keep detailed file ownership in this guide. |
+|`CONTRIBUTING.md`                    | Branching, setup, validation, and pull-request workflow.                                                                  | **Edit** when team workflow changes.                                                                      |
+|`requirements.txt`                   | A short Node.js/npm prerequisite note; it is not a Python dependency file.                                                | **Edit carefully**; update only when prerequisites change.                                                |
+|`vercel-installation-instructions.md`| Deployment and environment-variable instructions for Vercel and Sanity.                                                   | **Edit** when hosting or deployment steps change.                                                         |
+|`AGENTS.md`                          | Requires reading the installed Next.js documentation before Next.js work.                                                 | **Edit carefully**; this controls agent behavior.                                                         |
+|`CLAUDE.md`                          | Points Claude-based tooling to`AGENTS.md`.                                                                               | **Edit carefully**; keep it aligned with repository guidance.                                             |
+| `.gitignore`                         | Excludes secrets, dependencies, builds, and local generated output from Git.                                              | **Edit carefully** when adding a new local-only or generated path.                                        |
+|`.prettierignore`                    | Excludes selected files from Prettier.                                                                                    | **Edit carefully**; avoid hiding source files from formatting.                                            |
+|`sanity.schema.json`                 | Extracted Sanity schema used as an input to frontend type generation.                                                     | **Generated**; edit Studio schemas instead.                                                               |
+|`skills-lock.json`                   | Lock metadata for the repository's checked-in agent skill.                                                                | **Managed**; change only when updating that skill.                                                        |
+|`sanity-next-preview.png` | Repository preview image used for project presentation. | **Asset**; replace only when branding changes. |
 
 ## Repository support files
 
@@ -93,46 +90,18 @@ Do not hand-edit `sanity.schema.json`, `frontend/sanity.types.ts`, or `studio/sa
 
 ## Frontend routes and application shell
 
-| Path                                          | What it does                                                                                    | Developer action                                                  |
-| --------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
-| `frontend/app/layout.tsx`                     | Root layout, metadata, fonts, draft-mode UI, Sanity Live, header, footer, and global providers. | **Edit** for site-wide shell or metadata changes.                 |
-| `frontend/app/page.tsx`                       | Home route; fetches settings and posts, then renders the homepage.                              | **Edit** for homepage composition or data needs.                  |
-| `frontend/app/[slug]/page.tsx`                | Renders Sanity pages by slug, including metadata and page-builder blocks.                       | **Edit** when page routing or page rendering changes.             |
-| `frontend/app/posts/[slug]/page.tsx`          | Renders a post, author, cover image, Portable Text body, and related posts.                     | **Edit** for article behavior.                                    |
-| `frontend/app/events/`                        | Directory reserved for events. It currently has no route implementation.                        | **Edit** only when implementing the events feature.               |
-| `frontend/app/events/[slug]/`                 | Reserved dynamic event route directory; currently empty.                                        | **Edit** only when implementing event routes.                     |
-| `frontend/app/sitemap.ts`                     | Builds sitemap entries from Sanity pages and posts.                                             | **Edit carefully** when adding indexable content types or routes. |
-| `frontend/app/api/draft-mode/enable/route.ts` | Enables Next.js draft mode for Sanity Presentation Tool previews.                               | **Edit carefully**; preserve preview security and behavior.       |
-| `frontend/app/actions.ts`                     | Server action that disables draft mode.                                                         | **Edit carefully**.                                               |
-| `frontend/app/client-utils.ts`                | Client-side handling for Sanity/CORS errors and notifications.                                  | **Edit carefully** when client error behavior changes.            |
-| `frontend/app/favicon.ico`                    | Browser favicon.                                                                                | **Asset**; replace for branding changes.                          |
-
-## Frontend reusable components
-
-| Path                                          | What it does                                                                   | Developer action                                                            |
-| --------------------------------------------- | ------------------------------------------------------------------------------ | --------------------------------------------------------------------------- |
-| `frontend/app/components/Posts.tsx`           | Queries and renders all or recent post cards.                                  | **Edit** when post listings change.                                         |
-| `frontend/app/components/PageBuilder.tsx`     | Renders Sanity page-builder content with live/optimistic updates.              | **Edit carefully** when page-builder behavior changes.                      |
-| `frontend/app/components/BlockRenderer.tsx`   | Maps Sanity block types to React components.                                   | **Edit** when adding a page-builder block; update its schema and types too. |
-| `frontend/app/components/Cta.tsx`             | Renders a call-to-action block with text, button, image, theme, and alignment. | **Edit** for CTA presentation.                                              |
-| `frontend/app/components/InfoSection.tsx`     | Renders an informational heading, subheading, and rich text body.              | **Edit** for info-section presentation.                                     |
-| `frontend/app/components/PortableText.tsx`    | Renders Sanity rich text, images, heading anchors, and resolved links.         | **Edit carefully**; changes affect every rich-text field.                   |
-| `frontend/app/components/ResolvedLink.tsx`    | Converts Sanity URL, page, and post references into usable links.              | **Edit carefully**; preserve internal/external link behavior.               |
-| `frontend/app/components/SanityImage.tsx`     | Provides the frontend wrapper for Sanity CDN images.                           | **Edit carefully** when image loading or sizing changes.                    |
-| `frontend/app/components/Avatar.tsx`          | Displays an author image, name, and date.                                      | **Edit** for author metadata presentation.                                  |
-| `frontend/app/components/Date.tsx`            | Formats dates with `date-fns`.                                                 | **Edit carefully** because all displayed dates may change.                  |
-| `frontend/app/components/Onboarding.tsx`      | Shows starter guidance when pages or posts are missing.                        | **Edit** when empty-state behavior changes.                                 |
-| `frontend/app/components/DraftModeToast.tsx`  | Shows preview-mode status and provides a way to leave draft mode.              | **Edit carefully**.                                                         |
-| `frontend/app/components/GetStartedCode.tsx`  | Displays and copies a starter command.                                         | **Edit** if onboarding commands change.                                     |
-| `frontend/app/components/SideBySideIcons.tsx` | Displays the decorative Sanity/Next.js starter icon composition.               | **Edit or remove** when replacing starter branding.                         |
+| Path                       | What it does                                                                                    | Developer action                                       |
+| -------------------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| `frontend/app/layout.tsx`  | Root layout, metadata, fonts, draft-mode UI, Sanity Live, header, footer, and global providers. | **Edit** for site-wide shell or metadata changes.      |
+| `frontend/app/page.tsx`    | Home route; fetches settings and posts, then renders the homepage.                              | **Edit** for homepage composition or data needs.       |
+| `frontend/app/page.tsx`    | Calls the minimal homepage view.                                                                | **Edit** when changing the homepage or route behavior. |
+| `frontend/app/favicon.ico` | Browser favicon.                                                                                | **Asset**; replace for branding changes.               |
 
 ## Frontend presentation and styling
 
 | Path                                         | What it does                                                                            | Developer action                                                                            |
 | -------------------------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| `frontend/html/Header.tsx`                   | Site header with the home link, About link, and starter Sanity link.                    | **Edit** for navigation and branding.                                                       |
-| `frontend/html/Footer.tsx`                   | Site footer with starter links and tile background.                                     | **Edit** for footer content and branding.                                                   |
-| `frontend/html/HomePage.tsx`                 | Starter homepage hero, description, setup snippet, and post area.                       | **Edit** for the actual Pick It Up homepage experience.                                     |
+| `frontend/html/HomePage.tsx`                 | Minimal homepage markup showing the TypeScript, TSX, CSS, and Next.js connection.       | **Edit** for the page layout and semantic HTML.                                             |
 | `frontend/html/README.md`                    | Explains the separation between presentational templates and data access.               | **Edit carefully** when that boundary changes.                                              |
 | `frontend/css/globals.css`                   | Tailwind setup and global/base styles, including starter and class-based layout styles. | **Edit** for global visual design; remove stale starter styles when replacing the template. |
 | `frontend/css/README.md`                     | Explains global stylesheet ownership.                                                   | **Edit carefully**.                                                                         |
@@ -148,7 +117,7 @@ Do not hand-edit `sanity.schema.json`, `frontend/sanity.types.ts`, or `studio/sa
 | `frontend/sanity/lib/api.ts`     | Validates project/dataset environment values and exposes API version and Studio URL. | **Edit carefully** when Sanity environment behavior changes.           |
 | `frontend/sanity/lib/client.ts`  | Configures the Sanity client, CDN usage, perspective, token, and stega settings.     | **Edit carefully**; review caching and secret handling.                |
 | `frontend/sanity/lib/live.ts`    | Exports `sanityFetch` and `SanityLive` for live content and visual editing.          | **Edit carefully**; this controls data freshness and preview behavior. |
-| `frontend/sanity/lib/queries.ts` | Contains GROQ for settings, pages, posts, slugs, sitemap entries, and related posts. | **Edit** when data requirements change; regenerate types afterward.    |
+| `frontend/sanity/lib/queries.ts` | Contains existing GROQ for a future Sanity-backed implementation.                    | **Edit** when data requirements change; regenerate types afterward.    |
 | `frontend/sanity/lib/token.ts`   | Validates the server-only Sanity read token.                                         | **Edit carefully**; never expose the token to the client.              |
 | `frontend/sanity/lib/types.ts`   | Defines helper types for page-builder blocks and dereferenced links.                 | **Edit** when query/component contracts change.                        |
 | `frontend/sanity/lib/utils.ts`   | Builds Sanity image URLs, Open Graph metadata, links, and data attributes.           | **Edit carefully** because several features depend on these helpers.   |
@@ -213,10 +182,11 @@ Do not hand-edit `sanity.schema.json`, `frontend/sanity.types.ts`, or `studio/sa
 
 ## What is currently implemented
 
-The current codebase has settings, pages, posts, people, CTA blocks, info sections, draft mode, live Sanity updates, and a homepage/post flow. The following items are described in the product README but are not currently represented by matching implementation: events, statistics, team-member content as a dedicated feature, signup embeds, video backgrounds, and Pick It Up contact details in the footer. There is also no implemented event route under `frontend/app/events/`.
+The current frontend example has one static homepage route, one TSX view, and one global stylesheet. The Sanity Studio and integration code remain in the repository as a foundation for adding content later, but they are not required to render the current homepage.
 
 When implementing one of those features, update the relevant Studio schema, registration, generated types, GROQ query, frontend route/component, sitemap behavior, and this guide together.
 
 ## Files developers should usually avoid editing
 
 Do not hand-edit `node_modules/`, `.next/`, `out/`, `.sanity/`, `frontend/next-env.d.ts`, `frontend/sanity.types.ts`, `studio/sanity.types.ts`, `sanity.schema.json`, or `package-lock.json`. These files are generated or managed. Change their source configuration or use npm/Sanity commands instead.
+xt-env.d.ts`, `frontend/sanity.types.ts`, `studio/sanity.types.ts`, `sanity.schema.json`, or `package-lock.json`. These files are generated or managed. Change their source configuration or use npm/Sanity commands instead.

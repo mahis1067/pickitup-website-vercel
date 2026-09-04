@@ -1,45 +1,131 @@
-@import 'tailwindcss';
-
-@plugin "@tailwindcss/typography";
-
-@layer base {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-medium tracking-tight;
-  }
+:root {
+  --ink: #14211b;
+  --muted: #52645b;
+  --paper: #f4f0e7;
+  --accent: #d85b38;
+  --accent-dark: #a53a22;
+  --line: #d8d0c2;
 }
 
-@utility container {
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+a {
+  color: inherit;
+}
+
+.page-shell {
+  width: min(100% - 2rem, 68rem);
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 4rem 0;
 }
 
-@custom-variant dark (&:where(.dark, .dark *));
+.hero,
+.connection {
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  padding: clamp(2rem, 7vw, 6rem);
+}
 
-@theme {
-  --shadow-layer: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
+.hero {
+  background: #fffaf1;
+}
 
-  --color-framework: #000;
-  --color-black: #0b0b0b;
-  --color-white: #fff;
-  --color-brand: #f50;
-  --color-blue: #0052ff;
-  --color-yellow: #cdea19;
-  --color-gray-50: #f6f6f8;
-  --color-gray-100: #eeeef1;
-  --color-gray-200: #e3e4e8;
-  --color-gray-300: #bbbdc9;
-  --color-gray-400: #9499ad;
-  --color-gray-500: #727892;
-  --color-gray-600: #515870;
-  --color-gray-700: #383d51;
-  --color-gray-800: #252837;
-  --color-gray-900: #1b1d27;
-  --color-gray-950: #13141b;
+.eyebrow {
+  margin: 0 0 1rem;
+  color: var(--accent-dark);
+  font:
+    700 0.75rem/1.2 ui-monospace,
+    SFMono-Regular,
+    Consolas,
+    monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
 
-  --default-transition-duration: 250ms;
+h1,
+h2 {
+  max-width: 12ch;
+  margin: 0;
+  font-weight: 500;
+  line-height: 0.95;
+}
+
+h1 {
+  font-size: clamp(3.5rem, 10vw, 8rem);
+}
+
+h2 {
+  font-size: clamp(2rem, 5vw, 4rem);
+}
+
+.intro {
+  max-width: 38rem;
+  margin: 2rem 0;
+  color: var(--muted);
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  line-height: 1.5;
+}
+
+code {
+  padding: 0.15em 0.35em;
+  border-radius: 0.3em;
+  background: #ebe3d5;
+  font:
+    0.85em ui-monospace,
+    SFMono-Regular,
+    Consolas,
+    monospace;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.8rem 1.1rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fffaf1;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.button:hover {
+  background: var(--accent-dark);
+}
+
+.connection {
+  margin-top: 1rem;
+  background: var(--ink);
+  color: #fffaf1;
+}
+
+.connection .eyebrow {
+  color: #f5ad85;
+}
+
+.connection ol {
+  max-width: 38rem;
+  margin: 2rem 0 0;
+  padding-left: 1.5rem;
+  color: #d5dfd8;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+@media (max-width: 40rem) {
+  .page-shell {
+    padding: 1rem 0;
+  }
+
+  .hero,
+  .connection {
+    padding: 2rem 1.5rem;
+  }
 }

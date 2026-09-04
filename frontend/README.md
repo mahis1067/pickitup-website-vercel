@@ -18,15 +18,16 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Editing the Website
 
-The website is split into a presentation layer and a backend adapter layer:
+The example is split into a route, a presentation layer, and a stylesheet:
 
-- `html/` contains the page markup as typed Next.js TSX templates. Start with `html/HomePage.tsx`, `html/Header.tsx`, and `html/Footer.tsx` when building the layout.
-- `css/` contains the global styles. Start with `css/globals.css` when changing the visual design.
-- `app/page.tsx` and `app/layout.tsx` connect Sanity data to the templates. Keep backend queries and content mapping here rather than in `html/`.
+- `app/page.tsx` is the Next.js route and calls the page view.
+- `html/HomePage.tsx` contains the page markup as typed TSX.
+- `css/globals.css` contains the global styles.
+- `app/layout.tsx` loads the stylesheet and provides the document metadata.
 
-The templates accept content through props, so a developer can build the layout with fixture data before connecting Sanity.
+The small example is intentionally independent of Sanity at runtime, but the existing Sanity Studio and integration files remain available for a future content-driven implementation.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The page can be deployed to Vercel with the standard Next.js build command.
 
 ## Learn More
 
