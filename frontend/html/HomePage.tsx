@@ -26,14 +26,14 @@ export default function HomePage({description, posts}: HomePageProps) {
                     className="underline decoration-brand hover:text-brand underline-offset-8 hover:underline-offset-4 transition-all ease-out"
                     href="https://sanity.io/"
                   >
-                    Sanity
+                    Mahi
                   </Link>
                   +
                   <Link
                     className="underline decoration-black text-framework underline-offset-8 hover:underline-offset-4 transition-all ease-out"
                     href="https://nextjs.org/"
                   >
-                    Next.js
+                    Shah
                   </Link>
                 </h1>
               </div>
