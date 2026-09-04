@@ -16,7 +16,15 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Editing the Website
+
+The website is split into a presentation layer and a backend adapter layer:
+
+- `html/` contains the page markup as typed Next.js TSX templates. Start with `html/HomePage.tsx`, `html/Header.tsx`, and `html/Footer.tsx` when building the layout.
+- `css/` contains the global styles. Start with `css/globals.css` when changing the visual design.
+- `app/page.tsx` and `app/layout.tsx` connect Sanity data to the templates. Keep backend queries and content mapping here rather than in `html/`.
+
+The templates accept content through props, so a developer can build the layout with fixture data before connecting Sanity.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
