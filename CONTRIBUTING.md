@@ -8,8 +8,8 @@ This repository is a Node.js/npm workspace containing the Next.js frontend and S
 2. Clone the repository and enter it:
 
 ```shell
-git clone https://github.com/mahis1067/nextjs-clean-website-sanity-template.git
-cd nextjs-clean-website-sanity-template
+git clone https://github.com/mahis1067/pickitup-website-vercel
+cd pickitup-website-vercel
 ```
 
 3. Install all workspace dependencies:
